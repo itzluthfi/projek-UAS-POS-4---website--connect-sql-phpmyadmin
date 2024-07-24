@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Update Member</title>
+    <!-- Include Tailwind CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.15/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+  </head>
+
+  <body class="bg-gray-100 flex justify-center items-center h-screen">
+    <div class="bg-white p-8 rounded-lg shadow-md w-96">
+      <h1 class="text-center text-gray-700 text-2xl font-bold mb-4">
+        Update Member
+      </h1>
+      <form action="/updateMember" method="post" class="space-y-4">
+        <input type="hidden" name="id" value="{{.Id}}" />
+        <label for="username" class="text-gray-600">Username:</label>
+        <input
+          type="text"
+          id="username"
+          name="username"
+          value="{{.Username}}"
+          required
+          class="block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
+        />
+        <label for="noTelp" class="text-gray-600">No Telp:</label>
+        <input
+          type="text"
+          id="noTelp"
+          name="noTelp"
+          value="{{.NoTelp}}"
+          required
+          class="block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
+        />
+        <div class="flex justify-between">
+          <button
+            type="submit"
+            class="bg-blue-500 text-white px-6 py-3 rounded-lg hover:bg-blue-600 transition duration-200"
+          >
+            Update
+          </button>
+          <button
+            type="button"
+            onclick="window.location.href='/manageMember'"
+            class="bg-red-500 text-white px-6 py-3 rounded-lg hover:bg-red-600 transition duration-200"
+          >
+            Cancel
+          </button>
+        </div>
+      </form>
+    </div>
+  </body>
+</html>

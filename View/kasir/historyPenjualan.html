@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>History Penjualan</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.0.3/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      .modal {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        display: none;
+        align-items: center;
+        justify-content: center;
+      }
+      .modal-box {
+        background: white;
+        padding: 2rem;
+        border-radius: 0.5rem;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        max-height: 70%; /* Set maximum height for the modal box */
+        max-width: 70%;
+        width: 70%;
+        overflow-y: auto; /* Ensure horizontal scroll if content overflows */
+      }
+      .modal.show {
+        display: flex;
+      }
+
+      .active-link {
+        background-color: #4a5568; /* bg-gray-700 */
+      }
+    </style>
+  </head>
+  <body class="bg-gray-100 flex">
+    <div
+      class="sidebar h-screen w-70 fixed top-0 left-0 bg-gray-900 text-white pt-20"
+    >
+      <div class="user-info text-center pb-4">
+        <h4 class="profil text-lg">Welcome Back, {{.Username}}</h4>
+        <p>Role: {{.Role}}</p>
+      </div>
+      <a
+        href="/kasirNonMember"
+        class="block py-2 px-4 text-white hover:bg-gray-700 flex items-center"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke-width="1.5"
+          stroke="currentColor"
+          class="w-6 h-6 mr-2"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M15.75 10.5V6a3.75 3.75 0 1 0-7.5 0v4.5m11.356-1.993 1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 0 1-1.12-1.243l1.264-12A1.125 1.125 0 0 1 5.513 7.5h12.974c.576 0 1.059.435 1.119 1.007ZM8.625 10.5a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm7.5 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z"
+          />
+        </svg>
+        Penjualan Non Member
+      </a>
+      <a
+        href="/kasirMember"
+        class="block py-2 px-4 text-white hover:bg-gray-700 flex items-center"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke-width="1.5"
+          stroke="currentColor"
+          class="w-6 h-6 mr-2"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M15 9h3.75M15 12h3.75M15 15h3.75M4.5 19.5h15a2.25 2.25 0 0 0 2.25-2.25V6.75A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25v10.5A2.25 2.25 0 0 0 4.5 19.5Zm6-10.125a1.875 1.875 0 1 1-3.75 0 1.875 1.875 0 0 1 3.75 0Zm1.294 6.336a6.721 6.721 0 0 1-3.17.789 6.721 6.721 0 0 1-3.168-.789 3.376 3.376 0 0 1 6.338 0Z"
+          />
+        </svg>
+        Penjualan Member
+      </a>
+      <a
+        href="/historyPenjualan"
+        class="block py-2 px-4 text-white hover:bg-gray-700 flex items-center"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke-width="1.5"
+          stroke="currentColor"
+          class="w-6 h-6 mr-2"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M9 12h3.75M9 15h3.75M9 18h3.75m3 .75H18a2.25 2.25 0 0 0 2.25-2.25V6.108c0-1.135-.845-2.098-1.976-2.192a48.424 48.424 0 0 0-1.123-.08m-5.801 0c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 0 0 .75-.75 2.25 2.25 0 0 0-.1-.664m-5.8 0A2.251 2.251 0 0 1 13.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m0 0H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V9.375c0-.621-.504-1.125-1.125-1.125H8.25ZM6.75 12h.008v.008H6.75V12Zm0 3h.008v.008H6.75V15Zm0 3h.008v.008H6.75V18Z"
+          />
+        </svg>
+        History Penjualan
+      </a>
+      <a
+        href="/logout"
+        class="block py-2 px-4 text-white hover:bg-gray-700 flex items-center"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke-width="1.5"
+          stroke="currentColor"
+          class="w-6 h-6 mr-2"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M8.25 9V5.25A2.25 2.25 0 0 1 10.5 3h6a2.25 2.25 0 0 1 2.25 2.25v13.5A2.25 2.25 0 0 1 16.5 21h-6a2.25 2.25 0 0 1-2.25-2.25V15m-3 0-3-3m0 0 3-3m-3 3H15"
+          />
+        </svg>
+        Logout
+      </a>
+    </div>
+
+    <div class="container ml-56 p-8 max-w-screen-xl mx-auto">
+      <h1 class="text-3xl font-bold mb-9 mt-6">History Penjualan</h1>
+      <table
+        id="historyTable"
+        class="w-full bg-white shadow-lg rounded-lg overflow-hidden"
+      >
+        <thead class="bg-gray-200">
+          <tr>
+            <th class="px-6 py-3 border-b border-gray-300">Id</th>
+            <th class="px-6 py-3 border-b border-gray-300">isMember?</th>
+            <th class="px-6 py-3 border-b border-gray-300">Tanggal</th>
+            <th class="px-6 py-3 border-b border-gray-300">Total Harga</th>
+            <th class="px-6 py-3 border-b border-gray-300">Jumlah Tunai</th>
+            <th class="px-6 py-3 border-b border-gray-300">Kembalian</th>
+            <th class="px-6 py-3 border-b border-gray-300">Aksi</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{range .Sales}}
+          <tr class="hover:bg-gray-100">
+            <td class="px-6 py-4 whitespace-nowrap">{{.IdPenjualan}}</td>
+            <td class="px-6 py-4 whitespace-nowrap">{{.IsMember}}</td>
+            <td class="px-6 py-4 whitespace-nowrap">{{.CreateAt}}</td>
+            <td class="px-6 py-4 whitespace-nowrap">Rp {{.Total}}</td>
+            <td class="px-6 py-4 whitespace-nowrap">Rp {{.JmlTunai}}</td>
+            <td class="px-6 py-4 whitespace-nowrap">Rp {{.Kembalian}}</td>
+            <td class="px-6 py-4 whitespace-nowrap">
+              <button
+                class="btn bg-blue-500 text-white py-1 px-3 rounded hover:bg-blue-700"
+                onclick="fetchAndShowModal('{{.IdPenjualan}}')"
+              >
+                Details
+              </button>
+            </td>
+          </tr>
+          {{end}}
+        </tbody>
+      </table>
+    </div>
+
+    <div id="detailModal" class="modal">
+      <div class="modal-box">
+        <h3 class="text-lg font-bold mb-4">Detail Penjualan :</h3>
+        <div id="modalContent">
+          <!-- Detail content will be inserted here -->
+        </div>
+        <div class="modal-action flex justify-end">
+          <button
+            class="btn bg-red-500 text-white py-1 px-3 rounded hover:bg-red-700 mt-2"
+            onclick="closeModal('detailModal')"
+          >
+            Close
+          </button>
+        </div>
+      </div>
+    </div>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const links = document.querySelectorAll(".sidebar a");
+
+        // Set active class on the link matching current URL
+        links.forEach((link) => {
+          if (link.href === window.location.href) {
+            link.classList.add("active-link");
+          }
+        });
+
+        // Add click event listener to each link
+        links.forEach((link) => {
+          link.addEventListener("click", function () {
+            // Remove active class from all links
+            links.forEach((l) => l.classList.remove("active-link"));
+            // Add active class to the clicked link
+            this.classList.add("active-link");
+          });
+        });
+      });
+    </script>
+    <script>
+      async function fetchAndShowModal(id) {
+        try {
+          const response = await fetch(`/getDetailPenjualan?id=${id}`);
+          if (!response.ok) throw new Error("Failed to fetch details");
+          const data = await response.json();
+          const modalContent = document.getElementById("modalContent");
+
+          // Initialize counter for item numbering
+          let itemNumber = 1;
+
+          // Start creating the HTML content
+          let content = `
+            <table class="min-w-full bg-white">
+              <thead>
+                <tr>
+                  <th class="px-6 py-3 border-b border-gray-300">Attribute :</th>
+                  <th class="px-6 py-3 border-b border-gray-300">Value</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="px-6 py-4 border-b border-gray-300">ID Penjualan :</td>
+                  <td class="px-6 py-4 border-b border-gray-300">${data.idPenjualan}</td>
+                </tr>
+                <tr>
+                  <td class="px-6 py-4 border-b border-gray-300">Create At :</td>
+                  <td class="px-6 py-4 border-b border-gray-300">${data.createAt}</td>
+                </tr>
+                <tr>
+                  <td class="px-6 py-4 border-b border-gray-300">Total :</td>
+                  <td class="px-6 py-4 border-b border-gray-300">Rp ${data.total}</td>
+                </tr>
+                <tr>
+                  <td class="px-6 py-4 border-b border-gray-300">Jumlah Tunai :</td>
+                  <td class="px-6 py-4 border-b border-gray-300">Rp ${data.jmlTunai}</td>
+                </tr>
+                <tr>
+                  <td class="px-6 py-4 border-b border-gray-300">Kembalian :</td>
+                  <td class="px-6 py-4 border-b border-gray-300">Rp ${data.kembalian}</td>
+                </tr>
+                <tr>
+                  <td class="px-6 py-4 border-b border-gray-300">Total Diskon :</td>
+                  <td class="px-6 py-4 border-b border-gray-300">Rp ${data.totalDiskon}</td>
+                </tr>
+                <tr>
+                  <td class="px-6 py-4 border-b border-gray-300">Is Member :</td>
+                  <td class="px-6 py-4 border-b border-gray-300">${data.isMember}</td>
+                </tr>
+          `;
+
+          // Add member details if isMember is true
+          if (data.isMember) {
+            content += `
+              <tr>
+                <td class="px-6 py-4 border-b border-gray-300">Nama Member :</td>
+                <td class="px-6 py-4 border-b border-gray-300">${data.namaMember}</td>
+              </tr>
+              <tr>
+                <td class="px-6 py-4 border-b border-gray-300">Point Reward :</td>
+                <td class="px-6 py-4 border-b border-gray-300">${data.pointReward}</td>
+              </tr>
+              <tr>
+                <td class="px-6 py-4 border-b border-gray-300">Point Used :</td>
+                <td class="px-6 py-4 border-b border-gray-300">${data.pointUsed}</td>
+              </tr>
+            `;
+          }
+
+          content += `
+                <tr>
+                  <td class="px-6 py-4 border-b border-gray-300" colspan="2">
+                    <h4 class="text-lg font-bold">Detail Items :</h4>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <table class="min-w-full bg-white mt-4">
+              <thead>
+                <tr>
+                  <th class="px-6 py-3 border-b border-gray-300">No.</th>
+                  <th class="px-6 py-3 border-b border-gray-300">Nama Item</th>
+                  <th class="px-6 py-3 border-b border-gray-300">Harga Satuan</th>
+                  <th class="px-6 py-3 border-b border-gray-300">Jumlah</th>
+                  <th class="px-6 py-3 border-b border-gray-300">Diskon</th>
+                  <th class="px-6 py-3 border-b border-gray-300">Subtotal</th>
+                </tr>
+              </thead>
+              <tbody>
+               ${data.detail
+                 .map(
+                   (item) => `
+                  <tr>
+                    <td class="px-6 py-4 border-b border-gray-300">${itemNumber++}</td>
+                    <td class="px-6 py-4 border-b border-gray-300">${
+                      item.Nama
+                    }</td>
+                    <td class="px-6 py-4 border-b border-gray-300">Rp ${
+                      item.Harga
+                    }</td>
+                    <td class="px-6 py-4 border-b border-gray-300">${
+                      item.JmlPesanan
+                    }</td>
+                  
+                    <td class="px-6 py-4 border-b border-gray-300">Rp ${
+                      item.HargaDiskon
+                    }</td>
+                    <td class="px-6 py-4 border-b border-gray-300">Rp ${
+                      item.JmlPesanan * (item.Harga - item.HargaDiskon)
+                    }</td>
+                  </tr>
+                `
+                 )
+                 .join("")}
+              </tbody>
+            </table>
+          `;
+
+          modalContent.innerHTML = content;
+          showModal("detailModal");
+        } catch (error) {
+          console.error(error);
+        }
+      }
+
+      function showModal(id) {
+        document.getElementById(id).classList.add("show");
+      }
+
+      function closeModal(id) {
+        document.getElementById(id).classList.remove("show");
+      }
+
+      window.addEventListener("keydown", function (event) {
+        if (event.key === "Escape") {
+          document.querySelectorAll(".modal").forEach(function (modal) {
+            modal.classList.remove("show");
+          });
+        }
+      });
+    </script>
+  </body>
+</html>
